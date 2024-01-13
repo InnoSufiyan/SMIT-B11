@@ -1,0 +1,11 @@
+ul {
+    list-style-image: url("./images/3.png");
+}
+
+/* ul li {
+    list-style-type: disc;
+}
+
+ol li {
+    list-style-type: upper-roman;
+} */
