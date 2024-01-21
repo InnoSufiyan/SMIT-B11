@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+/* #banner {
+    background-color: blue;
+    width: 100%;
+    height: 30px;
+    position: sticky;
+    top: 30px;
+}
+#banner2 {
+    background-color: rgb(217, 255, 0);
+    width: 100%;
+    height: 30px;
+    position: sticky;
+    top: 100px;
+}
+
+
+#whatsappIcon {
+    z-index: -1;
+    height: 50px;
+    width: 50px;
+    background-color: green;
+    padding: 5px;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+#whatsappIcon img {
+    height: 100%;
+    width: 100%;
+} */
+
+.box {
+  width: 250px;
+  height: 250px;
+  /* float: right; */
+}
+
+#one {
+  background-color: blue;
+  /* background-image: url('./6422b7266abaab001eafc0c1.jpg'); */
+  background-image: url('./pngtree-nature-wallpapers-image_2683049.jpg');
+  background-attachment: fixed;
+  /* float: left; */
+}
+
+#one:hover {
+  /* background-color: blue; */
+  background-image: url('./6422b7266abaab001eafc0c1.jpg');
+  cursor: pointer;
+  /* float: left; */
+}
+
+
+
+#one img {
+  width: 100%;
+  height: 100%;
+}
+#two {
+  background-color: green;
+  clear: left;
+  /* float: left; */
+}
+#three {
+  background-color: yellow;
+  /* float: right; */
+}
+#four {
+  background-color: red;
+  /* float: right; */
+}
+#five {
+  background-color: purple;
+  /* float: right; */
+}
