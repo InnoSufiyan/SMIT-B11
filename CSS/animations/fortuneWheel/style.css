@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main2 {
+  position: relative;
+}
+
+.wheel {
+  width: 200px;
+  height: 200px;
+  transition: all 10s;
+  animation-name: wheelGhooma;
+  animation-duration: 5s;
+  animation-delay: 3s;
+}
+
+@keyframes wheelGhooma {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(330deg);
+  }
+}
+
+.wheel img {
+  width: 100%;
+  height: 100%;
+}
+
+.phuntru {
+  position: absolute;
+  top: 0;
+  left: 135px;
+  transform: rotate(45deg);
+  z-index: 9999;
+}
+
+.kutta {
+  width: 80px;
+  height: 50px;
+  position: absolute;
+  top: 80px;
+  left: 60px;
+  transition: transform 1s;
+  transform-origin: bottom;
+}
+.kutta img {
+  width: 100%;
+  height: 100%;
+}
+
+.kutta:hover {
+  transform: scale(0);
+}

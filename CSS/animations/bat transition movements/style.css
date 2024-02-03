@@ -1,0 +1,30 @@
+.bat {
+  width: 200px;
+  height: 200px;
+  animation-name: batMoveHuwa;
+  animation-duration: 2s;
+  animation-iteration-count: infinite
+}
+
+.bat img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes batMoveHuwa {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  25% {
+    transform: translate(300px, 0px);
+  }
+  50% {
+    transform: translate(300px, 300px);
+  }
+  75% {
+    transform: translate(0px, 300px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}

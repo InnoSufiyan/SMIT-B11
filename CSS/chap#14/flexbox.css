@@ -6,19 +6,67 @@
 
 #parent {
     border: 2px solid black;
-    height: 400px;
+    height: 500px;
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    
+    gap: 20px;
+    /* align-items: center; */
+    /* flex-wrap: wrap;
+    align-content: center; */
+    /* align-items: stretch; */
 }
 
 .box {
-    height: 50px;
-    width: 50px;
+    height: 100px;
     background-color: blue;
     border: 1px solid grey;
     color: white;
-    
+    flex: 1;
+    flex-basis: 100px;
+
+}
+
+/* #three {
+    flex: 4;
+} */
+/* #one {
+    flex: 3;
+}
+#five {
+    flex: 3;
+} */
+/* #one {
+    align-self: flex-end;
+}
+#two {
+    align-self: center;
+}
+#four {
+    align-self: center;
+}
+#five {
+    align-self: flex-end;
+}
+#six {
+    align-self: center;
+}
+#eight {
+    align-self: center;
+}
+#nine {
+    align-self: flex-end;
+}
+#ten {
+    align-self: center;
+} */
+#eight {
+    order: -1;
+}
+#two {
+    order: -1;
+}
+#nine {
+    order: -2;
+}
+#one {
+    order: 1;
 }

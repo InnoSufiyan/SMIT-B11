@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-color: blue !important;
+}
+
+.nav-item a {
+    color: white !important;
+}
+
+#carouselExampleFade {
+    height: 200px;
+}
+
+.carousel-inner {
+    height: 100% !important;
+}
+.carousel-item {
+    height: 100% !important;
+}
+
+.carousel-item img {
+    height: 100% !important;
+}
+
+.barayPappa {
+    background-color: yellow;
+    padding: 10px;
+}
+
+.bachay {
+    background-color: blue;
+    color: wheat;
+    border: 2px solid white;
+}
