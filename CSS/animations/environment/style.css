@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.background {
+    background-image: url('./assets/bg.jpg');
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: left;
+    animation: bgAnimate 10s linear infinite;
+}
+
+.car {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: -20px;
+    left: 200px;
+}
+
+.car img {
+    width: 100%;
+    height: 100%;
+}
+.bike {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    bottom: -10px;
+    left: 600px;
+    animation: shapaatar 5s linear 3s infinite backwards;
+    transform-origin: bottom left;
+}
+
+.bike img {
+    width: 100%;
+    height: 100%;
+}
+.superman {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 20px;
+    animation: superman 5s linear 3s infinite;
+}
+
+.superman img {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes bgAnimate {
+    0% {
+        background-position: left;
+    }
+    100% {
+        background-position: right;
+    }
+}
+@keyframes superman {
+    0% {
+        left: -200px;
+    }
+    100% {
+        left: 1400px;
+    }
+}
+
+@keyframes shapaatar {
+    0% {
+        left: 100px;
+    }
+
+    30% {
+        left: 600px;
+        transform: rotate(-70deg);
+    }
+    40% {
+        transform: rotate(0deg);
+    }
+    100% {
+        left: 900px;
+    }
+}

@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.pappa {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.button {
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    padding: 8px;
+    transition: all 0.2s;
+    position: relative;
+    background-color: red;
+    /* overflow: hidden; */
+}
+
+.button:before {
+    content: 'Umer';
+    height: 100%;
+    width: 100%;
+    background-color: yellow;
+    position: absolute;
+    transition: 1s;
+    transform-origin: top;
+    
+}
+
+.button:hover {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.button:hover::before {
+    transform: rotate3d(1, 0, 0, 360deg);
+}
