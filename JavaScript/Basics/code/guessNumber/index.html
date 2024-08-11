@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess my Number</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="first-section">
+      <button onclick="gameRestart()">Again</button>
+      <p>Between 1 and 20</p>
+    </div>
+    <h1 style="text-align: center; font-size: 50px; margin-top: 50px">
+      Guess my Number
+    </h1>
+    <div class="questionMark-section">
+      <div class="questionMark">?</div>
+      <div class="underline"></div>
+    </div>
+    <div style="display: flex; height: 300px;">
+        <div class="left">
+            <input onKeyUp ="keyHandler()" id="userAnswer" type="number" maxlength="10">
+            <button onclick="checkHandler()">Check</button>
+        </div>
+        <div class="right">
+            <p id="paigham">start guessing ...</p>
+            <p>Score: <span id="score">20</span></p>
+            <p>High Score: <span id="high-score">0</span></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

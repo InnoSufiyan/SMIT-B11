@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.first-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 20px auto;
+    font-size: 30px;
+}
+
+.first-section button{
+    font-size: 30px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.questionMark-section {
+    position: relative;
+}
+
+.questionMark {
+    font-size: 100px;
+    background-color: white;
+    padding: 20px 70px;
+    width: fit-content;
+    color: black;
+    margin: 50px auto 0px auto;
+}
+
+.underline {
+    background-color: white;
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    top: 70px;
+    z-index: -1;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    /* border: 2px solid white; */
+}
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 40px;
+    /* border: 2px solid white; */
+}
+
+.left input {
+    font-size: 50px;
+    width: 250px;
+}
+.left button {
+    font-size: 30px;
+    padding: 20px 40px;
+    margin-top: 20px;
+}

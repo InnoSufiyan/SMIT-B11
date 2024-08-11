@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="homePage" class="hidden">
+      <h1>Welcome, <span id="usernameDisplay"></span>!</h1>
+      <div style="display: flex">
+        <textarea
+          id="postContent"
+          placeholder="What's on your mind?"
+        ></textarea>
+        <button id="postBtn">Post</button>
+      </div>
+      <h2>Your Posts</h2>
+      <div id="posts"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
