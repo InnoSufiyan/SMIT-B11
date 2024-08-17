@@ -42,15 +42,64 @@
             </li> -->
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button id="logout" class="btn btn-outline-success" type="submit">Log out</button>
           </form>
         </div>
       </div>
     </nav>
 
-    <h1>Welcome to Mr <span>Email</span></h1>
-    <button id="logout">Logout</button>
+    <!-- News Feed -->
+
+    <div class="container">
+      <div id="postInputArea">
+        <input id="postInput" type="text">
+        <input id="imgUrl" type="text">
+        <input type="file" id="file">
+        <button id="postBtn">Post</button>
+      </div>
+
+      <div id="spinner" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+
+      <!-- post area -->
+      <div id="postArea">
+        <div id="post">
+          <div id="topArea">
+            <div id="leftArea">
+            <div id="profilePicture">
+              <img src="https://pinnacle.works/wp-content/uploads/2022/06/dummy-image.jpg" alt="">
+            </div>
+            <div id="section2">
+              <p>Naaam</p>
+              <p>data n time</p>
+            </div>
+            </div>
+            <div id="rightArea">
+            <button>*</button>
+            <button>...</button>
+            </div>
+          </div>
+          <div id="midArea">
+            <p>I planned for holidays , going to Pakistan Tour - right now in Kashmir</p>
+            <div id="contentImage">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS7NRnPcyrmiy4DrEoCobEaKFrJm60L7x2XA&s" alt="">
+            </div>
+          </div>
+          <div id="bottomArea">
+            <button>Like</button>
+            <button>Comment</button>
+            <button>Share</button>
+          </div>
+        </div>
+        
+      </div>
+
+
+    </div>
+
+    
+
 
     <script src="home.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

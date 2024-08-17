@@ -13,7 +13,17 @@ import {
   doc,
   setDoc,
   getDoc,
+  query,
+  where,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCK9l5QXk1FFKyoE57Q3RuxXPaWvlycShc",
@@ -31,6 +41,12 @@ const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
+// Get a reference to the storage service, which is used to create references in your storage bucket
+const storage = getStorage();
+
+// Create a storage reference from our storage service
+const storageRef = ref(storage, "images");
+
 export {
   auth,
   db,
@@ -43,4 +59,12 @@ export {
   doc,
   getDoc,
   setDoc,
+  query,
+  where,
+  getDocs,
+  storageRef,
+  storage,
+  uploadBytes,
+  uploadBytesResumable,
+  getDownloadURL
 };

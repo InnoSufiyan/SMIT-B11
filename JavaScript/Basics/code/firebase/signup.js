@@ -58,14 +58,15 @@ button.addEventListener("click", async () => {
         email: email.value,
       });
       console.log("Document written with ID: ", docRef.id);
-      alert('Registered Successfully')
-      setTimeout(()=> {
-        window.location.href = './login/login.html'
-      }, 2000)
+      alert("Registered Successfully");
+      setTimeout(() => {
+        window.location.href = "./login/login.html";
+      }, 2000);
     } catch (e) {
       console.error("Error adding document in firestore database: ", e);
     }
   } catch (error) {
-    console.log(error, "===>> authentication ka catch");
+    console.log(error.message, "===>> authentication ka catch");
+    alert(error.message);
   }
 });

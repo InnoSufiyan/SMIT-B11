@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#postInputArea {
+  width: 100%;
+}
+
+#postInputArea input {
+  width: 80%;
+  height: 50px;
+}
+
+#postBtn {
+  padding: 5px 20px;
+  border-radius: 5px;
+  height: 50px;
+}
+
+#postArea {
+  border: 1px solid black;
+  background-color: lightgray;
+  height: 100%;
+}
+
+#topArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+#profilePicture {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#profilePicture img {
+  width: 100%;
+  height: 100%;
+}
+
+#leftArea {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#rightArea button {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+}
+
+#midArea {
+  padding: 20px;
+}
+
+#contentImage {
+  width: 100%;
+  height: 100%;
+}
+
+#contentImage img {
+  width: 100%;
+  height: 100%;
+}
+
+#bottomArea {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#bottomArea button {
+  padding: 10px 20px;
+}
+
+#spinner {
+  display: none;
+}
