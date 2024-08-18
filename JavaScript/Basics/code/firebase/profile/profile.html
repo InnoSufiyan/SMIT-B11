@@ -76,10 +76,15 @@
 
     <!-- Profile Section -->
 
-    <div class="container">
+    <div class="container d-flex gap-5">
       <!--Profile window  -->
       <div class="card" style="width: 18rem">
-        <img src="../assets/2.png" class="card-img-top" alt="..." />
+        <img
+          id="profilePicture"
+          src="../assets/2.png"
+          class="card-img-top"
+          alt="..."
+        />
         <div class="card-body">
           <h5 class="card-title" id="userName"></h5>
           <p class="card-text" id="description">...</p>
@@ -152,6 +157,8 @@
               <textarea name="" id="descriptionInput">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eaque impedit est fugiat, quo suscipit itaque quia quod. Officia, saepe.
               </textarea>
+              <p>Please Update your Profile Picture</p>
+              <input id="profilePictureInput" type="file" />
               <hr />
             </div>
             <div class="modal-footer">
@@ -163,11 +170,68 @@
               >
                 Close
               </button>
-              <button id="updateProfileBtn" type="button" class="btn btn-primary">
+              <button
+                id="updateProfileBtn"
+                type="button"
+                class="btn btn-primary"
+              >
                 Update Profile
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div style="width: 100%">
+        <div id="postInputArea">
+          <input id="postInput" type="text" />
+          <input type="file" id="file" />
+          <button id="postBtn">Post</button>
+        </div>
+
+        <div id="spinner" class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+
+        <!-- post area -->
+        <div id="postArea">
+          <!-- <div id="post">
+            <div id="topArea">
+              <div id="leftArea">
+                <div id="profilePicture">
+                  <img
+                    src="https://pinnacle.works/wp-content/uploads/2022/06/dummy-image.jpg"
+                    alt=""
+                  />
+                </div>
+                <div id="section2">
+                  <p>Naaam</p>
+                  <p>data n time</p>
+                </div>
+              </div>
+              <div id="rightArea">
+                <button>*</button>
+                <button>...</button>
+              </div>
+            </div>
+            <div id="midArea">
+              <p>
+                I planned for holidays , going to Pakistan Tour - right now in
+                Kashmir
+              </p>
+              <div id="contentImage">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS7NRnPcyrmiy4DrEoCobEaKFrJm60L7x2XA&s"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div id="bottomArea">
+              <button>Like</button>
+              <button>Comment</button>
+              <button>Share</button>
+            </div>
+          </div> -->
         </div>
       </div>
     </div>

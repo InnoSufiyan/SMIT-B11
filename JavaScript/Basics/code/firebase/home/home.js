@@ -10,10 +10,11 @@ import {
   query,
   where,
   getDocs,
-  storageRef,
+  ref,
   uploadBytes,
   uploadBytesResumable,
   getDownloadURL,
+  storage,
 } from "../utils/firebase.js";
 import { getNameFromEmail } from "../utils/merayFunction.js";
 
@@ -83,7 +84,6 @@ const postCreator = async () => {
   console.log("main chal raha hun");
 
   const textData = document.querySelector("#postInput");
-  const imgUrl = document.querySelector("#imgUrl");
   const imgFile = document.querySelector("#file");
 
   console.log(imgFile.files[0], "==>> image file");
@@ -91,6 +91,11 @@ const postCreator = async () => {
   const file = imgFile.files[0];
 
   // file upload karney laga hun
+
+  const date = new Date();
+
+  // Create a storage reference from our storage service
+  const storageRef = ref(storage, `images/${date.getTime()}`);
 
   const uploadTask = uploadBytesResumable(storageRef, file);
 

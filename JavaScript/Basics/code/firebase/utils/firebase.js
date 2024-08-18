@@ -22,7 +22,7 @@ import {
   ref,
   uploadBytes,
   uploadBytesResumable,
-  getDownloadURL
+  getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
 
 const firebaseConfig = {
@@ -44,8 +44,7 @@ const db = getFirestore(app);
 // Get a reference to the storage service, which is used to create references in your storage bucket
 const storage = getStorage();
 
-// Create a storage reference from our storage service
-const storageRef = ref(storage, "images");
+
 
 export {
   auth,
@@ -62,9 +61,9 @@ export {
   query,
   where,
   getDocs,
-  storageRef,
+  ref,
   storage,
   uploadBytes,
   uploadBytesResumable,
-  getDownloadURL
+  getDownloadURL,
 };
