@@ -15,6 +15,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   storage,
+  deleteDoc,
 } from "../utils/firebase.js";
 import { getNameFromEmail } from "../utils/merayFunction.js";
 
@@ -27,7 +28,6 @@ onAuthStateChanged(auth, async (user) => {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
-    console.log(uid);
 
     //bhai saab banday ka data do
     //firestore database
@@ -36,10 +36,8 @@ onAuthStateChanged(auth, async (user) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       userDetails = docSnap.data();
       userDetails.uid = uid;
-      console.log(userDetails, "==>> userDetails");
       const { firstName, lastName, email, userName } = docSnap.data();
       document.querySelector("span").innerHTML = firstName + " " + lastName; //haider
     } else {
@@ -49,7 +47,6 @@ onAuthStateChanged(auth, async (user) => {
 
     // ...
   } else {
-    console.log("bhai saab koi login hi nai hai");
     alert("Dafa hojao, login ho k aana");
     setTimeout(() => {
       window.location.href = "./login.html";
@@ -81,12 +78,8 @@ logoutBtn.addEventListener("click", () => {
 // yeh post create karney main help kareyga
 
 const postCreator = async () => {
-  console.log("main chal raha hun");
-
   const textData = document.querySelector("#postInput");
   const imgFile = document.querySelector("#file");
-
-  console.log(imgFile.files[0], "==>> image file");
 
   const file = imgFile.files[0];
 
@@ -166,7 +159,28 @@ postBtn.addEventListener("click", postCreator);
 
 // yeh html (postArea) main post show karwaney main help kareyga
 
-const postShowingFunction = (postData) => {
+function editHandler(postUidReceived) {
+  console.log(postUidReceived, "edit chal raha hai");
+
+  // postFetchFunction()
+}
+
+window.editHandler = editHandler;
+
+async function deleteHandler(postUidReceived) {
+  console.log(postUidReceived, "delete chal raha hai");
+
+  await deleteDoc(doc(db, "posts", postUidReceived));
+
+  console.log("ura diya");
+
+  postFetchFunction()
+}
+
+window.deleteHandler = deleteHandler;
+
+const postShowingFunction = (postData, postUid) => {
+  console.log(postUid, "==>> postUid");
   document.querySelector("#postArea").innerHTML += `<div id="post">
           <div id="topArea">
             <div id="leftArea">
@@ -182,8 +196,8 @@ const postShowingFunction = (postData) => {
             </div>
             </div>
             <div id="rightArea">
-            <button>Edit</button>
-            <button>Delete</button>
+            <button onclick="editHandler('${postUid}')">Edit</button>
+            <button onclick="deleteHandler('${postUid}')">Delete</button>
             </div>
           </div>
           <div id="midArea">
@@ -200,11 +214,22 @@ const postShowingFunction = (postData) => {
         </div>`;
 };
 
+async function getUserUpdatedData(uid) {
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    // console.log("Document data:", docSnap.data());
+    return docSnap.data();
+  } else {
+    // docSnap.data() will be undefined in this case
+    console.log("No such document!");
+  }
+}
+
 // yeh firebase se data mangwaney main help kareyga
 
 const postFetchFunction = async () => {
-  console.log("chal raha hun main");
-
   document.querySelector("#postArea").innerHTML = "";
 
   document.querySelector("#spinner").style.display = "block";
@@ -213,10 +238,36 @@ const postFetchFunction = async () => {
     const q = query(collection(db, "posts"));
 
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach(async (doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      postShowingFunction(doc.data());
+      // console.log(doc.id, " => ", doc.data());
+
+      //doc.data() -->> author uid -->> updated data fetch
+
+      const {
+        authorDetails: { uid },
+      } = doc.data();
+
+      // console.log(uid);
+
+      //getting updated data of specific user
+
+      const userUpdatedData = await getUserUpdatedData(uid);
+
+      const { authorDetails, textData, imgData } = doc.data();
+
+      authorDetails.img = userUpdatedData.imgUrl;
+
+      authorDetails.name =
+        userUpdatedData.firstName + " " + userUpdatedData.lastName;
+
+      const postData = {
+        authorDetails,
+        textData,
+        imgData,
+      };
+
+      postShowingFunction(postData, doc.id);
     });
 
     document.querySelector("#spinner").style.display = "none";

@@ -13,6 +13,7 @@ import {
   getDocs,
   ref,
   storage,
+  addDoc,
 } from "../utils/firebase.js";
 
 let userId; //khali variable for future use
@@ -35,7 +36,7 @@ onAuthStateChanged(auth, async (user) => {
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
       userData = docSnap.data();
-      const { firstName, lastName, email, userName, description } =
+      const { firstName, lastName, email, userName, description, imgUrl } =
         docSnap.data();
 
       // description -->> undefined
@@ -49,6 +50,7 @@ onAuthStateChanged(auth, async (user) => {
       document.querySelector("#firstNameInput").value = firstName;
       document.querySelector("#lastNameInput").value = lastName;
       document.querySelector("#userNameInput").value = userName;
+      document.querySelector("#profilePicture").src = imgUrl;
       document.querySelector("#descriptionInput").value = description || "";
     } else {
       // docSnap.data() will be undefined in this case
@@ -218,7 +220,7 @@ document
   });
 
 const postFetchFunction = async () => {
-  // document.querySelector("#postArea").innerHTML = "";
+  document.querySelector("#postArea").innerHTML = "";
   const q = query(collection(db, "posts")); //, where("capital", "==", true)
 
   const querySnapshot = await getDocs(q);
@@ -231,5 +233,78 @@ const postFetchFunction = async () => {
     if (authorDetails.uid === userId) postShowingFunction(doc.data());
   });
 };
+
+document.querySelector("#postBtn").addEventListener("click", () => {
+  const postData = document.querySelector("#postInput").value;
+  const file = document.querySelector("#postFile").files[0];
+
+  console.log(postData, "==>> postData");
+  console.log(file, "==>> postPicture");
+
+  //file uploadingrom "firebase/storage";
+
+  const date = new Date();
+
+  const storageRef = ref(storage, `images/${date.getTime()}`); //75264235
+
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  // Register three observers:
+  // 1. 'state_changed' observer, called any time the state changes
+  // 2. Error observer, called on failure
+  // 3. Completion observer, called on successful completion
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+      switch (snapshot.state) {
+        case "paused":
+          console.log("Upload is paused");
+          break;
+        case "running":
+          console.log("Upload is running");
+          break;
+      }
+    },
+    (error) => {
+      // Handle unsuccessful uploads
+    },
+    () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+        console.log("File available at", downloadURL);
+
+        //create complete post data and save in firestore
+
+        console.log(userData, "==>> userData");
+
+        const postCompleteData = {
+          authorDetails: {
+            name: userData.firstName + " " + userData.lastName,
+            uid: userId,
+            img: userData.imgUrl,
+          },
+          imgData: downloadURL,
+          textData: postData,
+        };
+
+        console.log(postCompleteData);
+
+        //if my generated uid -->> setDoc
+        //if firebase generated uid -->> addDoc
+
+        // Add a new document with a generated id.
+        const docRef = await addDoc(collection(db, "posts"), postCompleteData);
+        console.log("Document written with ID: ", docRef.id);
+
+        postFetchFunction()
+      });
+    }
+  );
+});
 
 postFetchFunction();
