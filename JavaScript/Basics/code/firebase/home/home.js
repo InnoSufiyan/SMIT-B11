@@ -16,10 +16,13 @@ import {
   getDownloadURL,
   storage,
   deleteDoc,
+  setDoc,
 } from "../utils/firebase.js";
 import { getNameFromEmail } from "../utils/merayFunction.js";
+import { saveDataInFirebase } from "../utils2/firebase.js";
 
 let userDetails;
+let postIdToBeEdited;
 
 //yeh btaeyga k koi login hai ya nahin haiF
 
@@ -159,22 +162,119 @@ postBtn.addEventListener("click", postCreator);
 
 // yeh html (postArea) main post show karwaney main help kareyga
 
-function editHandler(postUidReceived) {
-  console.log(postUidReceived, "edit chal raha hai");
-
+function editHandler(elem, postUidReceived) {
+  console.log(
+    elem.parentElement.parentElement.nextElementSibling.children[0].innerHTML,
+    "edit chal raha hai"
+  );
+  document.querySelector("#updatePostBtn").style.display = "block";
+  document.querySelector("#postBtn").style.display = "none";
+  document.querySelector("#postInput").value =
+    elem.parentElement.parentElement.nextElementSibling.children[0].innerHTML;
   // postFetchFunction()
+  postIdToBeEdited = postUidReceived;
 }
+
+document.querySelector("#updatePostBtn").addEventListener("click", () => {
+  console.log("main chal raha hun");
+  const textData = document.querySelector("#postInput");
+  const imgFile = document.querySelector("#file");
+
+  const file = imgFile.files[0];
+
+  // file upload karney laga hun
+
+  const date = new Date();
+
+  // Create a storage reference from our storage service
+  const storageRef = ref(storage, `images/${date.getTime()}`);
+
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  let downloadImageUrl;
+
+  // Register three observers:
+  // 1. 'state_changed' observer, called any time the state changes
+  // 2. Error observer, called on failure
+  // 3. Completion observer, called on successful completion
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+      switch (snapshot.state) {
+        case "paused":
+          console.log("Upload is paused");
+          break;
+        case "running":
+          console.log("Upload is running");
+          break;
+      }
+    },
+    (error) => {
+      // Handle unsuccessful uploads
+    },
+    () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+        console.log("File available at", downloadURL);
+        downloadImageUrl = downloadURL;
+
+        try {
+          // Add a new document with a generated id.
+
+          await saveDataInFirebase("posts", postIdToBeEdited, {
+            textData: textData.value,
+            imgData: downloadImageUrl,
+            authorDetails: {
+              name: userDetails.firstName + " " + userDetails.lastName,
+              img: userDetails.imgUrl || "",
+              uid: userDetails.uid,
+            },
+          });
+
+          // const docRef = await setDoc(doc(db, "posts", postIdToBeEdited), {
+          //   textData: textData.value,
+          //   imgData: downloadImageUrl,
+          //   authorDetails: {
+          //     name: userDetails.firstName + " " + userDetails.lastName,
+          //     img: userDetails.imgUrl || "",
+          //     uid: userDetails.uid,
+          //   },
+          // });
+          postFetchFunction();
+        } catch (error) {
+          console.log(error, "==>> error bata raha hun");
+        }
+      });
+    }
+  );
+
+  // 'file' comes from the Blob or File API
+  // try {
+  //   const fileUploader = await uploadBytes(storageRef, file);
+  //   console.log(fileUploader, "==>> fileUploader");
+  // } catch (error) {
+  //   console.log(error, "==>> error");
+  // }
+});
 
 window.editHandler = editHandler;
 
-async function deleteHandler(postUidReceived) {
+async function deleteHandler(elem, postUidReceived) {
+  console.log(elem, postUidReceived);
+  console.log(elem.parentElement.parentElement.parentElement);
+
   console.log(postUidReceived, "delete chal raha hai");
 
   await deleteDoc(doc(db, "posts", postUidReceived));
-
+  elem.parentElement.parentElement.parentElement.remove();
   console.log("ura diya");
 
-  postFetchFunction()
+  // postFetchFunction()
 }
 
 window.deleteHandler = deleteHandler;
@@ -196,8 +296,8 @@ const postShowingFunction = (postData, postUid) => {
             </div>
             </div>
             <div id="rightArea">
-            <button onclick="editHandler('${postUid}')">Edit</button>
-            <button onclick="deleteHandler('${postUid}')">Delete</button>
+            <button onclick="editHandler(this, '${postUid}')">Edit</button>
+            <button onclick="deleteHandler(this, '${postUid}')">Delete</button>
             </div>
           </div>
           <div id="midArea">
