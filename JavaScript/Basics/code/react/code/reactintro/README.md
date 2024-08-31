@@ -23,3 +23,6 @@ to ek state baneygi
 
 //let advice = ''
 const [advice, setAdvice]= useState("")
+
+
+npm install -g npm
