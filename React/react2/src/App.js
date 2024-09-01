@@ -1,20 +1,27 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { getAllData, getSingleData } from "./data";
+import { Recipe } from "./Recipe.js";
 
 function App() {
-  // const {
-  //   title,
-  //   id,
-  //   author,
-  //   khuwahishOfNumberOfShadis: [first, ...otherBiwis],
-  // } = getSingleData(3);
-
-  const singleData = getSingleData(2);
-
-  console.log(singleData?.timeOfShadi?.year);   //undefined ->> year
-
-  return <div>Hamara Project</div>;
+  return (
+    <div>
+      <h1
+        style={{
+          textAlign: "center",
+        }}
+      >
+        Inno - chef
+      </h1>
+      <p>Meray Resturant ka Menu</p>
+      <Recipe />
+      <Recipe />
+      <Recipe />
+      <Recipe />
+      <Recipe />
+      <Recipe />
+    </div>
+  );
 }
 
 export default App;
