@@ -1,14 +1,32 @@
-export function Recipe() {
+export function Recipe({ dish }) {
+  console.log(dish);
   return (
     <div
       style={{
         display: "flex",
+        width: "48%",
+        backgroundColor: "lightgray",
+        border: "2px solid black",
+        borderRadius: "10px",
       }}
     >
-      <img src="https://media.istockphoto.com/id/1345624336/photo/chicken-biriyani.jpg?s=612x612&w=0&k=20&c=adU_N0P-1SKMQLZu5yu7aPknfLLgbViI8XILqLP92A4=" />
+      <div
+        style={{
+          width: "200px",
+          height: "200px",
+        }}
+      >
+        <img
+          style={{
+            width: "100%",
+          }}
+          src={dish.img}
+        />
+      </div>
       <div>
-        <h1>Yeh hai Biryani</h1>
-        <p>Ghar k masaaley se bani huwi biryani</p>
+        <h1>{dish.title}</h1>
+        <p>{dish.description}</p>
+        <button>{dish.stock ?? "out of stock"}</button>
       </div>
     </div>
   );
