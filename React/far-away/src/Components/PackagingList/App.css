@@ -1,0 +1,23 @@
+.packaging {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    background-color: #4c3423;
+    align-items: center;
+    width: 100%;
+}
+
+.itemList {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    width: 100%;
+}
+
+.item {
+    display: flex;
+    color: white;
+    gap: 10px;
+    width: 100%;
+}
