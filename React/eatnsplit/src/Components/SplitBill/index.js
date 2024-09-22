@@ -16,14 +16,14 @@ const SplitBill = ({ friends, selectedFriend }) => {
 
   return (
     <div>
-      <h1>Split a bill with {selectedFriend.name}</h1>
+      <Heading selectedFriend={selectedFriend} />
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
         }}
       >
-        <p>Bill Value</p>
+        <ParaBill />
         <input
           onChange={(e) => setBillValue(e.target.value)}
           type="text"
@@ -74,3 +74,11 @@ const SplitBill = ({ friends, selectedFriend }) => {
 };
 
 export default SplitBill;
+
+const Heading = ({selectedFriend}) => {
+  return <h1>Split a bill with {selectedFriend.name}</h1>;
+};
+
+const ParaBill = () => {
+  return <p>Bill Value</p>
+}
