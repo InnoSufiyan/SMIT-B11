@@ -13,7 +13,6 @@ export default function App() {
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
-
   const days = [
     "Sunday",
     "Monday",
@@ -59,6 +58,9 @@ export default function App() {
     </div>
   );
 }
+
+
+
 
 function StepCounter({ title, value, setValue }) {
   function incrementHandler() {
