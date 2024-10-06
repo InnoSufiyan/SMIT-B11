@@ -1,0 +1,21 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: grey;
+  border-radius: 5px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 20px;
+}
+
+.alignCenter {
+  text-align: center;
+}
