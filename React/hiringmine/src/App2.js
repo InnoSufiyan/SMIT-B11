@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [statee, setStatee] = useState("a");
-  console.log("==>> baahir wala");
 
   useEffect(() => {
-    console.log("==>> useEffect wala");
     setStatee("b");
 
     //clean up

@@ -3,38 +3,38 @@ import JobCard from "../../Components/JobCard";
 import Navbar from "../../Components/Navbar";
 import "./App.css";
 import { Pagination } from "@mui/material";
+import { Link } from "react-router-dom";
+import MultipleSelectCheckmarks from "../../Components/MultipleCheckMarks";
+import useDataFetch from "../../CustomHooks/useDataFetch";
 
 export default function Jobs() {
-  const [jobs, setJobs] = useState([]);
   const [loader, setLoader] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
 
-  console.log("===>> huwa huwa rerender");
+  const [{ data: jobs } = {}, jobError] = useDataFetch(
+    `https://backend-prod.app.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=${keyword}&category=`
+  );
 
-  const getJobsApiCall = () => {
-    setLoader(true);
-    fetch(
-      `https://backend-prod.app.hiringmine.com/api/jobAds/all?limit=10&pageNo=${page}&keyWord=${keyword}&category=`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("===>> jobs ka data aagaya");
-        setJobs(res.data);
-        setLoader(false);
-      });
-  };
+  const [{ data: filterations } = {}, filterationsError] = useDataFetch(
+    `https://backend-prod.app.hiringmine.com/api/filterations/all`
+  );
 
-  useEffect(() => {
-    console.log("===>> useEffect2 k ander hun");
-    getJobsApiCall();
-    return () => {
-      console.log("UseEffect 1 mar raha");
-    };
-  }, [page]);
+  console.log(filterations, "==>>filterations");
 
   return (
     <>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
+        {filterations?.filteration?.map((filter) => (
+          <MultipleSelectCheckmarks filter={filter} />
+        ))}
+      </div>
+
       <h1>Job Page</h1>
       <div className="jobCardSection">
         {jobs?.map((job) => (
@@ -49,8 +49,6 @@ export default function Jobs() {
           size="large"
           variant="outlined"
           onChange={(event, page) => {
-            console.log(event, "==>> event");
-            console.log(page, "==>> page");
             setPage(page);
           }}
         />
