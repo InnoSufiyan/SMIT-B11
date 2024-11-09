@@ -5,15 +5,6 @@ import { useEffect, useState } from "react";
 function App() {
   const [statee, setStatee] = useState("a");
 
-  useEffect(() => {
-    setStatee("b");
-
-    //clean up
-    return () => {
-      console.log("==>>marney se pehley kalma parh raha hun");
-    };
-  }, [statee]);
-
   return (
     <div
       style={{

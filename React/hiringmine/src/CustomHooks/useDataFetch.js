@@ -14,8 +14,8 @@ const useDataFetch = (apiUrl) => {
     }
   };
 
-  useEffect(async () => {
-    await apiCall();
+  useEffect(() => {
+    apiCall();
   }, []);
 
   return [data, error];

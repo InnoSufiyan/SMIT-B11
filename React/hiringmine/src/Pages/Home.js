@@ -1,20 +1,36 @@
+import axios from "axios";
+import { HiringMineContext } from "../App";
 import Navbar from "../Components/Navbar";
 import useDataFetch from "../CustomHooks/useDataFetch";
 import "./App.css";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 function Home() {
+  const { state, dispatch } = useContext(HiringMineContext);
+  console.log(state);
+  const { isDarkTheme, jobs, categories } = state;
   const [keyword, setKeyword] = useState("");
   const [categoryShow, setCategoryShow] = useState(8);
   const [loader, setLoader] = useState(false);
   const [loader2, setLoader2] = useState(false);
 
-  const [{ data: categories } = {}, categoriesError] = useDataFetch(
-    `https://backend-prod.app.hiringmine.com/api/categories/all`
-  );
-  const [{ data: jobs } = {}, jobError] = useDataFetch(
-    `https://backend-prod.app.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=${keyword}&category=`
-  );
+  async function jobsApiCall() {
+    const response = await axios.get(
+      `https://backend-prod.app.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=${keyword}&category=`
+    );
+    console.log(response, "==>> response");
+    dispatch({
+      type: "Jobs Data",
+      payload: response.data.data,
+    });
+  }
+
+  // const [{ data: categories } = {}, categoriesError] = useDataFetch(
+  //   `https://backend-prod.app.hiringmine.com/api/categories/all`
+  // );
+  // const [{ data: jobs } = {}, jobError] = useDataFetch(
+  //   `https://backend-prod.app.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=${keyword}&category=`
+  // );
 
   // const getJobsApiCall = () => {
   //   setLoader(true);
@@ -28,6 +44,10 @@ function Home() {
   //     });
   // };
 
+  useEffect(() => {
+    jobsApiCall();
+  }, []);
+
   return (
     <>
       <div
@@ -35,8 +55,18 @@ function Home() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: isDarkTheme ? "black" : "white",
         }}
       >
+        <button
+          onClick={() =>
+            dispatch({
+              type: "themeHandle",
+            })
+          }
+        >
+          theme toggle
+        </button>
         <h1 className="alignCenter">HiringMine</h1>
         <div>
           <input
