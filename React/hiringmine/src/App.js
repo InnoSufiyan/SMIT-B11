@@ -85,14 +85,14 @@ export default function App() {
       >
         <JobsContext.Provider
           value={{
-            state,
-            dispatch,
+            jobsState,
+            jobsDispatch,
           }}
         >
           <PeoplesContext.Provider
             value={{
-              state,
-              dispatch,
+              peopleState,
+              peopleDispatch,
             }}
           >
             <ResponsiveAppBar />
