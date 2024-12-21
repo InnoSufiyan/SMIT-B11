@@ -6,7 +6,12 @@ import Users from '../models/Register.js'
 
 export const getAllUser = async (req, res) => {
     try {
-        const allUsers = await Users.find()
+        let allUsers;
+        if (req.query) {
+            allUsers = await Users.find(req.query)
+        } else {
+            allUsers = await Users.find()
+        }
 
         console.log(allUsers, "==>> allUsers")
 
@@ -41,6 +46,38 @@ export const getUser = async (req, res) => {
             message: "user found successfully",
             data: user
         })
+    } catch (error) {
+        res.json({
+            status: false,
+            message: "Phat gaya",
+            error: error.message
+        })
+    }
+}
+// @desc    Update User
+// @route   PUT /api/users/:id
+// @access  Public
+
+export const updateUser = async (req, res) => {
+    try {
+
+        console.log(req.params.userid)
+        console.log(req.body)
+        const token = req.headers.authorization.split(' ')[1]
+
+        console.log(token, "==>> token")
+
+        return
+
+        const updatingUser = await Users.findByIdAndUpdate(req.params.userid, req.body, { new: true })
+
+        console.log(updatingUser, "==>> updatingUser")
+
+        res.status(200).json({
+            status: true,
+            message: "Resource updated Successfully"
+        })
+
     } catch (error) {
         res.json({
             status: false,

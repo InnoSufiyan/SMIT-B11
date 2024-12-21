@@ -1,10 +1,12 @@
 import Users from '../models/Register.js'
+import jwt from 'jsonwebtoken'
 
 // @desc    SIGNUP
 // @route   POST /signup
 // @access  Public
 
 export const signupHandler = async (req, res) => {
+    console.log("==>>sadasdasd")
     try {
         const { userName, email, password } = req.body
 
@@ -84,9 +86,14 @@ export const loginHandler = async (req, res) => {
         })
 
         if (isUserExists.password == password) {
+
+            const token = jwt.sign({ userDetails: isUserExists }, 'cashew')
+
+
             res.json({
                 status: true,
-                message: "Login successfully"
+                message: "Login successfully",
+                token
             })
         } else {
             res.json({
