@@ -1,5 +1,6 @@
 import Users from '../models/Register.js'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 // @desc    SIGNUP
 // @route   POST /signup
@@ -39,10 +40,17 @@ export const signupHandler = async (req, res) => {
         })
 
         console.log("====>> document check hoga")
+
+        console.log("==>> password ka choora karna hai")
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        console.log(hashedPassword, "===>> hashedPassword")
+
         const doc = new Users({
             userName,
             email,
-            password
+            password: hashedPassword
         })
         console.log("====>> document check hogaya")
         await doc.save()
@@ -69,26 +77,37 @@ export const loginHandler = async (req, res) => {
     try {
         const { email, password } = req.body
 
+        console.log(email, "==>> email")
+        console.log(password, "==>> password")
+
         if (!email || !password) return res.json({
             status: false,
             message: "Missing Fields"
         })
-
+        console.log("==>> DB main user check karney jaa raha hun")
         const isUserExists = await Users.findOne({
             email: email
         })
 
-        console.log(isUserExists)
+        console.log(isUserExists, "==>> db main se user aagaya")
 
         if (!isUserExists) return res.json({
             status: false,
             message: "This email is not registered, you can signup"
         })
 
-        if (isUserExists.password == password) {
+        console.log("==>> password check karney jaa raha hun")
 
+        console.log(password, "===> password")
+        console.log(isUserExists.password, "===> isUserExists.password")
+
+        const isPasswordAuthentic = await bcrypt.compare(password, isUserExists.password);
+
+        if (isPasswordAuthentic) {
+            console.log("==>> token bananey jaa raha hun")
             const token = jwt.sign({ userDetails: isUserExists }, 'cashew')
 
+            console.log(token, "==>> token ban gayaF")
 
             res.json({
                 status: true,

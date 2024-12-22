@@ -1,4 +1,7 @@
+import jwt from 'jsonwebtoken';
 import Users from '../models/Register.js'
+import { json } from 'express';
+
 
 // @desc    Get all Users
 // @route   GET /api/users
@@ -63,11 +66,23 @@ export const updateUser = async (req, res) => {
 
         console.log(req.params.userid)
         console.log(req.body)
-        const token = req.headers.authorization.split(' ')[1]
+        const token = req.headers.authorization?.split(' ')[1]
+        if (!token) {
+            return res.json({
+                status: false,
+                message: "No Token, please authenticate, Darwaza band hai"
+            })
+        }
+        const bandaKonHai = jwt.verify(token, 'cashew')
 
-        console.log(token, "==>> token")
+        console.log(bandaKonHai, "==>>bandaKonHai")
 
-        return
+        if (bandaKonHai.userDetails._id != req.params.userid) {
+            return res.json({
+                status: false,
+                message: "You cannot access this request, Darwaza band hai"
+            })
+        }
 
         const updatingUser = await Users.findByIdAndUpdate(req.params.userid, req.body, { new: true })
 
