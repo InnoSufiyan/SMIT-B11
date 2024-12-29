@@ -34,7 +34,17 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number
-    }
+    },
+    otp: {
+        type: String,
+    },
+    otpExpires: {
+        type: Date,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
     //     firstName: {
     //         type: String,
     //         required: true,

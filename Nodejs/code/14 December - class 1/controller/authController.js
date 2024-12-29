@@ -1,6 +1,9 @@
 import Users from '../models/Register.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import nodemailer from 'nodemailer';
+import { sendEmailOTP } from '../utils/config.js';
+import { v4 as uuidv4 } from 'uuid';
 
 // @desc    SIGNUP
 // @route   POST /signup
@@ -53,14 +56,20 @@ export const signupHandler = async (req, res) => {
             password: hashedPassword
         })
         console.log("====>> document check hogaya")
+        const otp = uuidv4().slice(0, 6);
+        doc.otp = otp;
+        doc.otpExpires = Date.now() + 600000; // OTP expires in 10 minutes
+        doc.isVerified = false
+        const responseAfterEmail = await sendEmailOTP(email, otp)
         await doc.save()
         console.log("====>> document save hogaya")
-
         res.json({
             status: true,
-            message: "User Signed up successfully"
+            message: "User Signed up successfully",
+            responseAfterEmail
         })
     } catch (error) {
+        console.log(error, "==>> error")
         res.json({
             status: false,
             message: "Phat gaya",
@@ -133,3 +142,10 @@ export const loginHandler = async (req, res) => {
         })
     }
 }
+
+// @desc    LOGIN
+// @route   POST /login
+// @access  Public
+
+export const verifyEmail = async (req, res) => {
+};

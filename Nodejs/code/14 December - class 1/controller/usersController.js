@@ -8,12 +8,39 @@ import { json } from 'express';
 // @access  Public
 
 export const getAllUser = async (req, res) => {
+
+    console.log(req.query, "==>> req.query")
+
+
+
+    const page = parseInt(req.query.page) || 1;  // Default page is 1
+    const limit = parseInt(req.query.limit) || 10;  // Default limit is 10
+    const sortBy = req.query.sortBy
+
+    console.log(page, "==>> page")
+    console.log(limit, "==>> limit")
+    console.log(sortBy, "==>> sortBy")
+
+    const excludingQueries = ['page', 'limit', 'sortBy'];
+
+    excludingQueries.forEach((que) => delete req.query[que])
+
+    console.log(req.query)
+
     try {
         let allUsers;
         if (req.query) {
             allUsers = await Users.find(req.query)
+                .skip((page - 1) * limit)
+                .limit(limit)  // Limit the number of results per page
+                .sort(sortBy)
+                .select('-__v -city')
         } else {
             allUsers = await Users.find()
+                .skip((page - 1) * limit)
+                .limit(limit)  // Limit the number of results per page
+                .sort(sortBy)
+                .select('-__v -city')
         }
 
         console.log(allUsers, "==>> allUsers")
